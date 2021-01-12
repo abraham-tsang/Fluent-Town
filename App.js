@@ -2,46 +2,79 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, Button, TextInput, FlatList, View } from 'react-native';
 
-const firstOnPress = () => {
-    console.log("test")
-};
-
 const firstOnSubmitEditing = () => {
     console.log("test2")
 };
 
 const DATA = [
     {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        id: '1',
         title: 'First Item',
+        subtitle: '1st Item',
     },
     {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        id: '2',
         title: 'Second Item',
+        subtitle: '2nd Item',
     },
     {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        id: '3',
         title: 'Third Item',
+        subtitle: '3rd Item',
+    },
+    {
+        id: '4',
+        title: 'Fourth Item',
+        subtitle: '4th Item',
     },
 ];
 
-const Item = ({ title }) => (
+const Item = ({ title, subtitle }) => (
     <View style={styles.item}>
         <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{subtitle}</Text>
     </View>
 );
 
 export default class App extends React.Component{
+
+    constructor(props){
+	super(props);
+	this.swedishPress = this.swedishPress.bind(this);
+	this.japanesePress = this.japanesePress.bind(this);
+	this.portuguesePress = this.portuguesePress.bind(this);
+	this.chinesePress = this.chinesePress.bind(this);
+	this.state = {swedishColor: "red", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "blue"};
+    }
+
+    swedishPress(){
+	this.setState({swedishColor: "red", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "blue"});
+    }
+    japanesePress(){
+	this.setState({swedishColor: "blue", japaneseColor: "red", portugueseColor: "blue", chineseColor: "blue"});
+    }
+    portuguesePress(){
+	this.setState({swedishColor: "blue", japaneseColor: "blue", portugueseColor: "red", chineseColor: "blue"});
+    }
+    chinesePress(){
+	this.setState({swedishColor: "blue", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "red"});
+    }
+
     render(){
         const renderItem = ({ item }) => (
-            <Item title={item.title} />
+            <Item title={item.title, item.subtitle} />
         );
 	return(
 	    <View style={styles.container}>
 		<Text>Open up App.js to start working on your app!</Text>
-		<Button title="Press me" onPress={firstOnPress} />
+		<View style={{ flexDirection: "row" }}>
+		    <Button title="Swedish" color={this.state.swedishColor} onPress={this.swedishPress} />
+		    <Button title="Japanese" color={this.state.japaneseColor} onPress={this.japanesePress} />
+		    <Button title="Portuguese" color={this.state.portugueseColor} onPress={this.portuguesePress} />
+		    <Button title="Chinese" color={this.state.chineseColor} onPress={this.chinesePress} />
+		</View>
 		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={firstOnSubmitEditing} />
-                <FlatList data={DATA} renderItem={renderItem} />
+                <FlatList data={DATA} renderItem={renderItem} numColumns="3" />
 	    </View>
 	);
     }
@@ -57,15 +90,15 @@ const styles = StyleSheet.create({
     },
     item: {
         backgroundColor: '#f9c2ff',
-        padding: 20,
+        padding: 2,
         marginVertical: 8,
-        marginHorizontal: 16,
+        marginHorizontal: 8,
     },
     title: {
-        fontSize: 32,
+        fontSize: 16,
     },
     subtitle: {
-        fontSize: 16,
+        fontSize: 8,
     },
 });
 
