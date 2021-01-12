@@ -62,7 +62,7 @@ export default class App extends React.Component{
 
     render(){
         const renderItem = ({ item }) => (
-            <Item title={item.title, item.subtitle} />
+            <Item title={item.title} subtitle={item.subtitle} />
         );
 	return(
 	    <View style={styles.container}>
