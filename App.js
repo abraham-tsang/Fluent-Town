@@ -27,6 +27,36 @@ const DATA = [
         title: 'Fourth Item',
         subtitle: '4th Item',
     },
+    {
+        id: '5',
+        title: 'Fifth Item',
+        subtitle: '5th Item',
+    },
+    {
+        id: '6',
+        title: 'Sixth Item',
+        subtitle: '6th Item',
+    },
+    {
+        id: '7',
+        title: 'Seventh Item',
+        subtitle: '7th Item',
+    },
+    {
+        id: '8',
+        title: 'Eighth Item',
+        subtitle: '8th Item',
+    },
+    {
+        id: '9',
+        title: 'Ninth Item',
+        subtitle: '9th Item',
+    },
+    {
+        id: '10',
+        title: 'Tenth Item',
+        subtitle: '10th Item',
+    },
 ];
 
 const Item = ({ title, subtitle }) => (
@@ -90,15 +120,14 @@ const styles = StyleSheet.create({
     },
     item: {
         backgroundColor: '#f9c2ff',
-        padding: 2,
-        marginVertical: 8,
-        marginHorizontal: 8,
+	height: 70,
+	width: 140,
     },
     title: {
         fontSize: 16,
     },
     subtitle: {
-        fontSize: 8,
+        fontSize: 12,
     },
 });
 
