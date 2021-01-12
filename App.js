@@ -92,7 +92,7 @@ export default class App extends React.Component{
 
     render(){
         const renderItem = ({ item }) => (
-            <Item title={item.title} subtitle={item.subtitle} />
+            <Item title={item.title} subtitle={item.subtitle} onPress={this.itemPress(i)} />
         );
 	return(
 	    <View style={styles.container}>
@@ -119,9 +119,12 @@ const styles = StyleSheet.create({
         marginTop: StatusBar.currentHeight || 0,
     },
     item: {
-        backgroundColor: '#f9c2ff',
+        backgroundColor: '#61dafb',
+	borderColor: '#20232a',
+	borderWidth: 4,
 	height: 70,
-	width: 140,
+	width: 135,
+	padding: 10,
     },
     title: {
         fontSize: 16,
