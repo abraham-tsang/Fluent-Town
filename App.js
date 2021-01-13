@@ -2,18 +2,19 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, Button, TextInput, FlatList, TouchableHighlight, View } from 'react-native';
 
-const firstOnSubmitEditing = () => {
-    console.log("test2")
-};
+class Item extends React.Component{
+    render(){
+        return(
+            <TouchableHighlight onPress={this.props.onPress}>
+                <View style={styles.item}>
+                    <Text style={styles.title}>{this.props.title}</Text>
+                    <Text style={styles.subtitle}>{this.props.subtitle}</Text>
+                </View>
+            </TouchableHighlight>
+	);
+    }
+}
 
-const Item = ({ title, subtitle, onPress }) => (
-    <TouchableHighlight onPress={onPress}>
-        <View style={styles.item}>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.subtitle}>{subtitle}</Text>
-        </View>
-    </TouchableHighlight>
-);
 
 export default class App extends React.Component{
 
@@ -23,60 +24,65 @@ export default class App extends React.Component{
 	this.japanesePress = this.japanesePress.bind(this);
 	this.portuguesePress = this.portuguesePress.bind(this);
 	this.chinesePress = this.chinesePress.bind(this);
-	this.state = {swedishColor: "red", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "blue",
+	this.firstOnSubmitEditing = this.firstOnSubmitEditing.bind(this);
+	this.state = {
+	    swedishColor: "red", 
+	    japaneseColor: "blue", 
+	    portugueseColor: "blue", 
+	    chineseColor: "blue",
 	
-DATA : [
-    {
-        id: '1',
-        title: 'First Item',
-        subtitle: '1st Item',
-    },
-    {
-        id: '2',
-        title: 'Second Item',
-        subtitle: '2nd Item',
-    },
-    {
-        id: '3',
-        title: 'Third Item',
-        subtitle: '3rd Item',
-    },
-    {
-        id: '4',
-        title: 'Fourth Item',
-        subtitle: '4th Item',
-    },
-    {
-        id: '5',
-        title: 'Fifth Item',
-        subtitle: '5th Item',
-    },
-    {
-        id: '6',
-        title: 'Sixth Item',
-        subtitle: '6th Item',
-    },
-    {
-        id: '7',
-        title: 'Seventh Item',
-        subtitle: '7th Item',
-    },
-    {
-        id: '8',
-        title: 'Eighth Item',
-        subtitle: '8th Item',
-    },
-    {
-        id: '9',
-        title: 'Ninth Item',
-        subtitle: '9th Item',
-    },
-    {
-        id: '10',
-        title: 'Tenth Item',
-        subtitle: '10th Item',
-    },
-],
+            DATA : [
+                {
+                    id: '1',
+                    title: 'First Item',
+                    subtitle: '1st Item',
+                },
+                {
+                    id: '2',
+                    title: 'Second Item',
+                    subtitle: '2nd Item',
+                },
+                {
+                    id: '3',
+                    title: 'Third Item',
+                    subtitle: '3rd Item',
+                },
+                {
+                    id: '4',
+                    title: 'Fourth Item',
+                    subtitle: '4th Item',
+                },
+                {
+                    id: '5',
+                    title: 'Fifth Item',
+                    subtitle: '5th Item',
+                },
+                {
+                    id: '6',
+                    title: 'Sixth Item',
+                    subtitle: '6th Item',
+                },
+                {
+                    id: '7',
+                    title: 'Seventh Item',
+                    subtitle: '7th Item',
+                },
+                {
+                    id: '8',
+                    title: 'Eighth Item',
+                    subtitle: '8th Item',
+                },
+                {
+                    id: '9',
+                    title: 'Ninth Item',
+                    subtitle: '9th Item',
+                },
+                {
+                    id: '10',
+                    title: 'Tenth Item',
+                    subtitle: '10th Item',
+                },
+            ],
 	
 	};
     }
@@ -93,6 +99,10 @@ DATA : [
     chinesePress(){
 	this.setState({swedishColor: "blue", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "red"});
     }
+    firstOnSubmitEditing(){
+        console.log("test2")
+    }
+
 
     render(){
         const renderItem = ({ item }) => (
@@ -107,7 +117,7 @@ DATA : [
 		    <Button title="Portuguese" color={this.state.portugueseColor} onPress={this.portuguesePress} />
 		    <Button title="Chinese" color={this.state.chineseColor} onPress={this.chinesePress} />
 		</View>
-		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={firstOnSubmitEditing} />
+		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={this.firstOnSubmitEditing} />
                 <FlatList data={this.state.DATA} renderItem={renderItem} numColumns="3" />
 	    </View>
 	);
