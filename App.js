@@ -1,12 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, Button, TextInput, FlatList, View } from 'react-native';
+import { StyleSheet, Text, Button, TextInput, FlatList, TouchableHighlight, View } from 'react-native';
 
 const firstOnSubmitEditing = () => {
     console.log("test2")
 };
 
-const DATA = [
+const Item = ({ title, subtitle, onPress }) => (
+    <TouchableHighlight onPress={onPress}>
+        <View style={styles.item}>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.subtitle}>{subtitle}</Text>
+        </View>
+    </TouchableHighlight>
+);
+
+export default class App extends React.Component{
+
+    constructor(props){
+	super(props);
+	this.swedishPress = this.swedishPress.bind(this);
+	this.japanesePress = this.japanesePress.bind(this);
+	this.portuguesePress = this.portuguesePress.bind(this);
+	this.chinesePress = this.chinesePress.bind(this);
+	this.state = {swedishColor: "red", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "blue",
+	
+DATA : [
     {
         id: '1',
         title: 'First Item',
@@ -57,24 +76,9 @@ const DATA = [
         title: 'Tenth Item',
         subtitle: '10th Item',
     },
-];
-
-const Item = ({ title, subtitle }) => (
-    <View style={styles.item}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{subtitle}</Text>
-    </View>
-);
-
-export default class App extends React.Component{
-
-    constructor(props){
-	super(props);
-	this.swedishPress = this.swedishPress.bind(this);
-	this.japanesePress = this.japanesePress.bind(this);
-	this.portuguesePress = this.portuguesePress.bind(this);
-	this.chinesePress = this.chinesePress.bind(this);
-	this.state = {swedishColor: "red", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "blue"};
+],
+	
+	};
     }
 
     swedishPress(){
@@ -92,7 +96,7 @@ export default class App extends React.Component{
 
     render(){
         const renderItem = ({ item }) => (
-            <Item title={item.title} subtitle={item.subtitle} onPress={this.itemPress(i)} />
+            <Item title={item.title} subtitle={item.subtitle} onPress={this.japanesePress} />
         );
 	return(
 	    <View style={styles.container}>
@@ -104,7 +108,7 @@ export default class App extends React.Component{
 		    <Button title="Chinese" color={this.state.chineseColor} onPress={this.chinesePress} />
 		</View>
 		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={firstOnSubmitEditing} />
-                <FlatList data={DATA} renderItem={renderItem} numColumns="3" />
+                <FlatList data={this.state.DATA} renderItem={renderItem} numColumns="3" />
 	    </View>
 	);
     }
