@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, Button, TextInput, FlatList, TouchableHighlight, View } from 'react-native';
+import Video from 'react-native-video';
 
 class Item extends React.Component{
     render(){
@@ -15,8 +16,29 @@ class Item extends React.Component{
     }
 }
 
+class Audio extends React.Component{
+    render(){
+	    if(this.props.sound == true){
+	return(
+	    
+<Video source={{uri: 'https://raw.githubusercontent.com/abraham-tsang/625generate/master/Swedish/pronunciation_sv_adjektiv.mp3'}}
+                       ref={(ref) => {
+                         this.player = ref
+                       }}
+                     onBuffer={this.onBuffer}
+                     onEnd={this.onEnd}
+                     onError={this.videoError}
+                     style={styles.backgroundVideo} />
 
-export default class App extends React.Component{
+	);
+    }
+	    else{
+		    return null;
+		}
+}
+}
+
+class App extends React.Component{
 
     constructor(props){
 	super(props);
@@ -25,6 +47,7 @@ export default class App extends React.Component{
 	this.portuguesePress = this.portuguesePress.bind(this);
 	this.chinesePress = this.chinesePress.bind(this);
 	this.firstOnSubmitEditing = this.firstOnSubmitEditing.bind(this);
+	this.testPress = this.testPress.bind(this);
 	this.state = {
 	    swedishColor: "red", 
 	    japaneseColor: "blue", 
@@ -83,6 +106,8 @@ export default class App extends React.Component{
                     subtitle: '10th Item',
                 },
             ],
+
+	    sound: false,
 	
 	};
     }
@@ -102,11 +127,14 @@ export default class App extends React.Component{
     firstOnSubmitEditing(){
         console.log("test2")
     }
+    testPress(){
+        this.setState({swedishColor: "blue", japaneseColor: "red", portugueseColor: "blue", chineseColor: "blue", sound: true});
+    }
 
 
     render(){
         const renderItem = ({ item }) => (
-            <Item title={item.title} subtitle={item.subtitle} onPress={this.japanesePress} />
+            <Item title={item.title} subtitle={item.subtitle} onPress={this.testPress} />
         );
 	return(
 	    <View style={styles.container}>
@@ -119,6 +147,7 @@ export default class App extends React.Component{
 		</View>
 		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={this.firstOnSubmitEditing} />
                 <FlatList data={this.state.DATA} renderItem={renderItem} numColumns="3" />
+		<Audio sound={this.state.sound} />
 	    </View>
 	);
     }
@@ -148,3 +177,4 @@ const styles = StyleSheet.create({
     },
 });
 
+export default App;
