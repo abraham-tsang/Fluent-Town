@@ -126,10 +126,7 @@ class App extends React.Component{
 		</View>
 		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={this.firstOnSubmitEditing} />
                 <FlatList data={this.state.DATA} renderItem={renderItem} numColumns="3" />
-	<VideoPlayer
-  source={{uri: 'https://raw.githubusercontent.com/abraham-tsang/625generate/master/Swedish/pronunciation_sv_adjektiv.mp3'}}
-  navigator={this.props.navigator}
-/>
+	        <VideoPlayer source={{uri: 'https://raw.githubusercontent.com/abraham-tsang/625generate/master/Swedish/pronunciation_sv_adjektiv.mp3'}} navigator={this.props.navigator} />
 	    </View>
 	);
     }
