@@ -28,6 +28,7 @@ class App extends React.Component{
 	this.firstOnSubmitEditing = this.firstOnSubmitEditing.bind(this);
 	this.testPress = this.testPress.bind(this);
 	this.state = {
+	    examColor: "blue",
 	    swedishColor: "red", 
 	    japaneseColor: "blue", 
 	    portugueseColor: "blue", 
@@ -85,12 +86,13 @@ class App extends React.Component{
                     subtitle: '10th Item',
                 },
             ],
-
-	    sound: false,
-	
+	    audioSource: require('./pronunciation_sv_adjektiv.mp3'),
 	};
     }
 
+    examPress(){
+        
+    }
     swedishPress(){
 	this.setState({swedishColor: "red", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "blue"});
     }
@@ -107,7 +109,7 @@ class App extends React.Component{
         console.log("test2")
     }
     testPress(){
-        this.setState({swedishColor: "blue", japaneseColor: "red", portugueseColor: "blue", chineseColor: "blue", sound: true});
+        this.setState({swedishColor: "blue", japaneseColor: "red", portugueseColor: "blue", chineseColor: "blue", audioSource: require('./pronunciation_sv_advokat.mp3')});
     }
 
 
@@ -117,8 +119,13 @@ class App extends React.Component{
         );
 	return(
 	    <View style={styles.container}>
-		<Text>Open up App.js to start working on your app!</Text>
-		<View style={{ flexDirection: "row" }}>
+		<View style={ styles.row }>
+		    <TextInput style={styles.firstRowTextInput} />
+		    <Text>  -  </Text>
+		    <TextInput style={styles.firstRowTextInput} />
+		    <Button title="Mock Exam" color={this.state.examColor} onPress={this.examPress} />
+		</View>
+		<View style={ styles.row }>
 		    <Button title="Swedish" color={this.state.swedishColor} onPress={this.swedishPress} />
 		    <Button title="Japanese" color={this.state.japaneseColor} onPress={this.japanesePress} />
 		    <Button title="Portuguese" color={this.state.portugueseColor} onPress={this.portuguesePress} />
@@ -126,7 +133,7 @@ class App extends React.Component{
 		</View>
 		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={this.firstOnSubmitEditing} />
                 <FlatList data={this.state.DATA} renderItem={renderItem} numColumns="3" />
-	        <VideoPlayer source={{uri: 'https://raw.githubusercontent.com/abraham-tsang/625generate/master/Swedish/pronunciation_sv_adjektiv.mp3'}} navigator={this.props.navigator} />
+	        <VideoPlayer source={this.state.audioSource} navigator={this.props.navigator} />
 	    </View>
 	);
     }
@@ -139,6 +146,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: StatusBar.currentHeight || 0,
+    },
+    row: {
+	flexDirection: "row",
+    },
+    firstRowText: {
+	height: 40,
+    },
+    firstRowTextInput: {
+	height: 35,
+	width: 40,
+	borderWidth: 1,
     },
     item: {
         backgroundColor: '#61dafb',
