@@ -4,6 +4,18 @@ import { StyleSheet, Text, Button, TextInput, FlatList, TouchableHighlight, View
 import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
 
+class Exam extends React.Component{
+    render(){
+	return(
+	    <View style={styles.container}>
+	        <Text>Foreign</Text>
+		<TextInput style={styles.examTextInput} onSubmitEditing={this.props.examSubmit} />
+	        <Button title="End" onPress={this.props.onPress} />
+	    </View>
+	);
+    }
+}
+
 class Item extends React.Component{
     render(){
         return(
@@ -17,7 +29,7 @@ class Item extends React.Component{
     }
 }
 
-class App extends React.Component{
+class Home extends React.Component{
 
     constructor(props){
 	super(props);
@@ -90,9 +102,6 @@ class App extends React.Component{
 	};
     }
 
-    examPress(){
-        
-    }
     swedishPress(){
 	this.setState({swedishColor: "red", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "blue"});
     }
@@ -119,12 +128,12 @@ class App extends React.Component{
         );
 	return(
 	    <View style={styles.container}>
-		<View style={ styles.row }>
-		    <TextInput style={styles.firstRowTextInput} />
-		    <Text>  -  </Text>
-		    <TextInput style={styles.firstRowTextInput} />
-		    <Button title="Mock Exam" color={this.state.examColor} onPress={this.examPress} />
-		</View>
+	        <View style={ styles.row }>
+	            <TextInput style={styles.firstRowTextInput} />
+	            <Text>  -  </Text>
+	            <TextInput style={styles.firstRowTextInput} />
+	            <Button title="Mock Exam" onPress={this.props.onPress} />
+	        </View>
 		<View style={ styles.row }>
 		    <Button title="Swedish" color={this.state.swedishColor} onPress={this.swedishPress} />
 		    <Button title="Japanese" color={this.state.japaneseColor} onPress={this.japanesePress} />
@@ -137,6 +146,40 @@ class App extends React.Component{
 	    </View>
 	);
     }
+}
+
+class App extends React.Component{
+
+    constructor(props){
+	super(props);
+	this.beginExamPress = this.beginExamPress.bind(this);
+	this.endExamPress = this.endExamPress.bind(this);
+	this.examSubmit = this.examSubmit.bind(this);
+	this.state = {
+	    isHome: true,
+	    isExam: false,
+	}
+    }
+
+    beginExamPress(){
+        this.setState({isHome: false, isExam: true});
+    }
+    endExamPress(){
+        this.setState({isHome: true, isExam: false});
+    }
+    examSubmit(){
+        console.log("exam submitted")
+    }
+
+    render(){
+	return(
+	    <View style={styles.container}>
+		{this.state.isHome && <Home onPress={this.beginExamPress} />}
+		{this.state.isExam && <Exam onPress={this.endExamPress} examSubmit={this.examSubmit} />}
+	    </View>
+        );
+    }
+
 }
 
 const styles = StyleSheet.create({
@@ -171,6 +214,11 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         fontSize: 12,
+    },
+    examTextInput: {
+	height: 35,
+	width: 200,
+	borderWidth: 1,
     },
 });
 
