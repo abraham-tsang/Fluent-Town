@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, Button, TextInput, FlatList, TouchableHighlight, View } from 'react-native';
+import { StyleSheet, Text, Button, TextInput, SectionList, TouchableHighlight, View } from 'react-native';
 import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
 
@@ -46,58 +46,25 @@ class Home extends React.Component{
 	    portugueseColor: "blue", 
 	    chineseColor: "blue",
 	
-            DATA : [
+	    DATA: [
                 {
-                    id: '1',
-                    title: 'First Item',
-                    subtitle: '1st Item',
+                    title: "1.",
+                    data: ["Pizza", "Burger", "Risotto"]
                 },
                 {
-                    id: '2',
-                    title: 'Second Item',
-                    subtitle: '2nd Item',
+                    title: "2.",
+                    data: ["French Fries", "Onion Rings", "Fried Shrimps"]
                 },
                 {
-                    id: '3',
-                    title: 'Third Item',
-                    subtitle: '3rd Item',
+                    title: "3.",
+                    data: ["Water", "Coke", "Beer"]
                 },
                 {
-                    id: '4',
-                    title: 'Fourth Item',
-                    subtitle: '4th Item',
-                },
-                {
-                    id: '5',
-                    title: 'Fifth Item',
-                    subtitle: '5th Item',
-                },
-                {
-                    id: '6',
-                    title: 'Sixth Item',
-                    subtitle: '6th Item',
-                },
-                {
-                    id: '7',
-                    title: 'Seventh Item',
-                    subtitle: '7th Item',
-                },
-                {
-                    id: '8',
-                    title: 'Eighth Item',
-                    subtitle: '8th Item',
-                },
-                {
-                    id: '9',
-                    title: 'Ninth Item',
-                    subtitle: '9th Item',
-                },
-                {
-                    id: '10',
-                    title: 'Tenth Item',
-                    subtitle: '10th Item',
-                },
+                    title: "4.",
+                    data: ["Cheese Cake", "Ice Cream"]
+                }
             ],
+
 	    audioSource: require('./pronunciation_sv_adjektiv.mp3'),
 	};
     }
@@ -123,9 +90,9 @@ class Home extends React.Component{
 
 
     render(){
-        const renderItem = ({ item }) => (
+        /*const renderItem = ({ item }) => (
             <Item title={item.title} subtitle={item.subtitle} onPress={this.testPress} />
-        );
+        );*/
 	return(
 	    <View style={styles.container}>
 	        <View style={ styles.row }>
@@ -141,8 +108,8 @@ class Home extends React.Component{
 		    <Button title="Chinese" color={this.state.chineseColor} onPress={this.chinesePress} />
 		</View>
 		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={this.firstOnSubmitEditing} />
-                <FlatList data={this.state.DATA} renderItem={renderItem} numColumns="3" />
-	        <VideoPlayer source={this.state.audioSource} navigator={this.props.navigator} />
+	        <SectionList sections={this.state.DATA} keyExtractor={(item, index) => item + index} renderItem={({ item }) => <Item title={item} />} renderSectionHeader={({ section: { title } }) => ( <Text style={styles.header}>{title}</Text> )} onPress={this.state.testPress} />
+		<VideoPlayer source={this.state.audioSource} navigator={this.props.navigator} />
 	    </View>
 	);
     }
@@ -206,7 +173,7 @@ const styles = StyleSheet.create({
 	borderColor: '#20232a',
 	borderWidth: 4,
 	height: 70,
-	width: 135,
+	width: 300,
 	padding: 10,
     },
     title: {
