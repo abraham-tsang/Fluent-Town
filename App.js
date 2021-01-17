@@ -108,8 +108,11 @@ class Home extends React.Component{
 		    <Button title="Chinese" color={this.state.chineseColor} onPress={this.chinesePress} />
 		</View>
 		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={this.firstOnSubmitEditing} />
-	        <SectionList sections={this.state.DATA} keyExtractor={(item, index) => item + index} renderItem={({ item }) => <Item title={item} />} renderSectionHeader={({ section: { title } }) => ( <Text style={styles.header}>{title}</Text> )} onPress={this.state.testPress} />
-		<VideoPlayer source={this.state.audioSource} navigator={this.props.navigator} />
+		<Video source={this.state.audioSource} ref={(ref) => {
+                    this.player = ref
+                }}
+		onBuffer={this.onBuffer} onError={this.videoError} style={styles.backgroundVideo} />
+	        <SectionList sections={this.state.DATA} keyExtractor={(item, index) => item + index} renderItem={({ item }) => <Item title={item} onPress={this.testPress} />} renderSectionHeader={({ section: { title } }) => ( <Text style={styles.header}>{title}</Text> )} />
 	    </View>
 	);
     }
