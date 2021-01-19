@@ -33,6 +33,7 @@ class Home extends React.Component{
 
     constructor(props){
 	super(props);
+	this.addData = this.addData.bind(this);
 	this.swedishPress = this.swedishPress.bind(this);
 	this.japanesePress = this.japanesePress.bind(this);
 	this.portuguesePress = this.portuguesePress.bind(this);
@@ -53,10 +54,14 @@ class Home extends React.Component{
 	};
     }
 
+    addData(lang){
+        var DATA = []
+	DATA.push({title: "5.", data: ["dd"]})
+	return DATA
+    }
+
     swedishPress(){
-	    var DATA = this.state.DATA
-	    DATA = []
-	    DATA.push({title: "5.", data: ["dd"]})
+	var DATA = this.addData()
 	this.setState({swedishColor: "red", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "blue", DATA: DATA});
     }
     japanesePress(){
