@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, Button, TextInput, SectionList, TouchableHighlight, View } from 'react-native';
+import { StyleSheet, Text, Button, TextInput, SectionList, TouchableHighlight, View, ScrollView } from 'react-native';
 import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
 
@@ -46,40 +46,36 @@ class Home extends React.Component{
 	    portugueseColor: "blue", 
 	    chineseColor: "blue",
 	
-	    DATA: [
-                {
-                    title: "1.",
-                    data: ["Pizza", "Burger", "Risotto"]
-                },
-                {
-                    title: "2.",
-                    data: ["French Fries", "Onion Rings", "Fried Shrimps"]
-                },
-                {
-                    title: "3.",
-                    data: ["Water", "Coke", "Beer"]
-                },
-                {
-                    title: "4.",
-                    data: ["Cheese Cake", "Ice Cream"]
-                }
-            ],
+	    DATA: [],
 
 	    audioSource: require('./pronunciation_sv_adjektiv.mp3'),
+	    source: '',
 	};
     }
 
     swedishPress(){
-	this.setState({swedishColor: "red", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "blue"});
+	    var DATA = this.state.DATA
+	    DATA = []
+	    DATA.push({title: "5.", data: ["dd"]})
+	this.setState({swedishColor: "red", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "blue", DATA: DATA});
     }
     japanesePress(){
-	this.setState({swedishColor: "blue", japaneseColor: "red", portugueseColor: "blue", chineseColor: "blue"});
+	    var DATA = this.state.DATA
+	    DATA = []
+	    DATA.push({title: "6.", data: ["dd"]})
+	this.setState({swedishColor: "blue", japaneseColor: "red", portugueseColor: "blue", chineseColor: "blue", DATA: DATA});
     }
     portuguesePress(){
-	this.setState({swedishColor: "blue", japaneseColor: "blue", portugueseColor: "red", chineseColor: "blue"});
+	    var DATA = this.state.DATA
+	    DATA = []
+	    DATA.push({title: "7.", data: ["dd"]})
+	this.setState({swedishColor: "blue", japaneseColor: "blue", portugueseColor: "red", chineseColor: "blue", DATA: DATA});
     }
     chinesePress(){
-	this.setState({swedishColor: "blue", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "red"});
+	    var DATA = this.state.DATA
+	    DATA = []
+	    DATA.push({title: "8.", data: ["dd"]})
+	this.setState({swedishColor: "blue", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "red", DATA: DATA});
     }
     firstOnSubmitEditing(){
         console.log("test2")
@@ -108,11 +104,12 @@ class Home extends React.Component{
 		    <Button title="Chinese" color={this.state.chineseColor} onPress={this.chinesePress} />
 		</View>
 		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={this.firstOnSubmitEditing} />
-		<Video source={this.state.audioSource} ref={(ref) => {
-                    this.player = ref
-                }}
-		onBuffer={this.onBuffer} onError={this.videoError} style={styles.backgroundVideo} />
-	        <SectionList sections={this.state.DATA} keyExtractor={(item, index) => item + index} renderItem={({ item }) => <Item title={item} onPress={this.testPress} />} renderSectionHeader={({ section: { title } }) => ( <Text style={styles.header}>{title}</Text> )} />
+		<View>
+		<Video source={this.state.audioSource} />
+		</View>
+		<ScrollView>
+		<SectionList sections={this.state.DATA} keyExtractor={(item, index) => item + index} renderItem={({ item }) => <Item title={item} onPress={this.testPress} />} renderSectionHeader={({ section: { title } }) => ( <Text style={styles.header}>{title}</Text> )} />
+		</ScrollView>
 	    </View>
 	);
     }
