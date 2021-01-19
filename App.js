@@ -42,51 +42,56 @@ class Home extends React.Component{
 	this.testPress = this.testPress.bind(this);
 	this.state = {
 	    examColor: "blue",
-	    swedishColor: "red", 
+	    swedishColor: "blue", 
 	    japaneseColor: "blue", 
 	    portugueseColor: "blue", 
 	    chineseColor: "blue",
 	
 	    DATA: [],
 
-	    audioSource: require('./pronunciation_sv_adjektiv.mp3'),
+	    audioSource: '',
 	    source: '',
 	};
     }
 
     addData(lang){
         var DATA = []
-	DATA.push({title: "5.", data: ["dd"]})
+	if(lang === "sv"){
+	    DATA.push({title: "5.", data: ["dd"]})
+        }
+	else if(lang === "ja"){
+	    DATA.push({title: "6.", data: ["dd"]})
+        }
+	else if(lang === "pt"){
+	    DATA.push({title: "7.", data: ["dd"]})
+        }
+	else if(lang === "ch"){
+	    DATA.push({title: "8.", data: ["dd"]})
+        }
 	return DATA
     }
 
     swedishPress(){
-	var DATA = this.addData()
+	var DATA = this.addData("sv")
 	this.setState({swedishColor: "red", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "blue", DATA: DATA});
     }
     japanesePress(){
-	    var DATA = this.state.DATA
-	    DATA = []
-	    DATA.push({title: "6.", data: ["dd"]})
+	var DATA = this.addData("ja")
 	this.setState({swedishColor: "blue", japaneseColor: "red", portugueseColor: "blue", chineseColor: "blue", DATA: DATA});
     }
     portuguesePress(){
-	    var DATA = this.state.DATA
-	    DATA = []
-	    DATA.push({title: "7.", data: ["dd"]})
+	var DATA = this.addData("pt")
 	this.setState({swedishColor: "blue", japaneseColor: "blue", portugueseColor: "red", chineseColor: "blue", DATA: DATA});
     }
     chinesePress(){
-	    var DATA = this.state.DATA
-	    DATA = []
-	    DATA.push({title: "8.", data: ["dd"]})
+	var DATA = this.addData("ch")
 	this.setState({swedishColor: "blue", japaneseColor: "blue", portugueseColor: "blue", chineseColor: "red", DATA: DATA});
     }
     firstOnSubmitEditing(){
         console.log("test2")
     }
     testPress(){
-        this.setState({swedishColor: "blue", japaneseColor: "red", portugueseColor: "blue", chineseColor: "blue", audioSource: require('./pronunciation_sv_advokat.mp3')});
+        this.setState({swedishColor: "blue", japaneseColor: "red", portugueseColor: "blue", chineseColor: "blue", audioSource: ''});
     }
 
 
