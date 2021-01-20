@@ -3,6 +3,8 @@ import React from 'react';
 import { StyleSheet, Text, Button, TextInput, SectionList, TouchableHighlight, View, ScrollView } from 'react-native';
 import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
+import SoundPlayer from 'react-native-sound-player';
+var Sound = require('react-native-sound');
 
 class Exam extends React.Component{
     render(){
@@ -31,6 +33,8 @@ class Item extends React.Component{
 
 class Home extends React.Component{
 
+    _video;
+
     constructor(props){
 	super(props);
 	this.addData = this.addData.bind(this);
@@ -49,8 +53,10 @@ class Home extends React.Component{
 	
 	    DATA: [],
 
-	    audioSource: '',
+	    audioSource: require("./Swedish/pronunciation_sv_advokat.mp3"),
 	    source: '',
+	    videoPaused: true,
+	    videoRepeat: true,
 	};
     }
 
@@ -91,9 +97,15 @@ class Home extends React.Component{
         console.log("test2")
     }
     testPress(){
-        this.setState({swedishColor: "blue", japaneseColor: "red", portugueseColor: "blue", chineseColor: "blue", audioSource: ''});
-    }
+        var whoosh = new Sound('pronunciation_sv_advokat.mp3', null, (error) => {
+	    if(error){
+	    }
 
+	    whoosh.play();
+	})
+	//this._video && this._video.seek(0);
+        this.setState({swedishColor: "blue", japaneseColor: "red", portugueseColor: "blue", chineseColor: "blue", audioSource: require("./Swedish/pronunciation_sv_advokat.mp3")});
+    }
 
     render(){
         /*const renderItem = ({ item }) => (
@@ -101,6 +113,7 @@ class Home extends React.Component{
         );*/
 	return(
 	    <View style={styles.container}>
+		<Text>{this.state.videoPaused}</Text>
 	        <View style={ styles.row }>
 	            <TextInput style={styles.firstRowTextInput} />
 	            <Text>  -  </Text>
@@ -115,7 +128,7 @@ class Home extends React.Component{
 		</View>
 		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={this.firstOnSubmitEditing} />
 		<View>
-		<Video source={this.state.audioSource} />
+		<Video source={this.state.audioSource} ref={component => (this._video = component)} paused={this.state.videoPaused} repeat={this.state.videoRepeat} onEnd={() => this.setState({})} />
 		</View>
 		<ScrollView>
 		<SectionList sections={this.state.DATA} keyExtractor={(item, index) => item + index} renderItem={({ item }) => <Item title={item} onPress={this.testPress} />} renderSectionHeader={({ section: { title } }) => ( <Text style={styles.header}>{title}</Text> )} />
