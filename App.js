@@ -94,8 +94,8 @@ class Home extends React.Component{
     firstOnSubmitEditing(){
         console.log("test2")
     }
-    testPress(){
-	    //console.log(index)
+    testPress(index){
+	    console.log(index)
         var pronunciation = new Sound('pronunciation_sv_advokat.mp3', null, (error) => {
 	    if(error){
 	    }
@@ -122,7 +122,7 @@ class Home extends React.Component{
 		</View>
 		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={this.firstOnSubmitEditing} />
 		<ScrollView>
-		<SectionList sections={this.state.DATA} keyExtractor={(item, index) => item + index} renderItem={({ item }) => <Item title={item} onPress={this.testPress} />} renderSectionHeader={({ section: { title } }) => ( <Text style={styles.header}>{title}</Text> )} />
+		<SectionList sections={this.state.DATA} keyExtractor={(item, index) => item + index} renderItem={({ item, index }) => <Item title={item} onPress={() => this.testPress(index)} />} renderSectionHeader={({ section: { title } }) => ( <Text style={styles.header}>{title}</Text> )} />
 		</ScrollView>
 	    </View>
 	);
