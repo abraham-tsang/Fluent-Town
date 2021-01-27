@@ -33,8 +33,6 @@ class Item extends React.Component{
 
 class Home extends React.Component{
 
-    _video;
-
     constructor(props){
 	super(props);
 	this.addData = this.addData.bind(this);
@@ -63,16 +61,16 @@ class Home extends React.Component{
     addData(lang){
         var DATA = []
 	if(lang === "sv"){
-	    DATA.push({title: "5.", data: ["dd"]})
+	    DATA.push({title: "1.", data: ["dd\nee", "ff\ngg"], pronunciations: ['pronunciation_sv_advokat.mp3', 'pronunciation_sv_adjektiv.mp3']})
         }
 	else if(lang === "ja"){
-	    DATA.push({title: "6.", data: ["dd"]})
+	    DATA.push({title: "1.", data: ["dd"]})
         }
 	else if(lang === "pt"){
-	    DATA.push({title: "7.", data: ["dd"]})
+	    DATA.push({title: "1.", data: ["dd"]})
         }
 	else if(lang === "ch"){
-	    DATA.push({title: "8.", data: ["dd"]})
+	    DATA.push({title: "1.", data: ["dd"]})
         }
 	return DATA
     }
@@ -97,20 +95,16 @@ class Home extends React.Component{
         console.log("test2")
     }
     testPress(){
-        var whoosh = new Sound('pronunciation_sv_advokat.mp3', null, (error) => {
+	    //console.log(index)
+        var pronunciation = new Sound('pronunciation_sv_advokat.mp3', null, (error) => {
 	    if(error){
 	    }
 
-	    whoosh.play();
+	    pronunciation.play();
 	})
-	//this._video && this._video.seek(0);
-        this.setState({swedishColor: "blue", japaneseColor: "red", portugueseColor: "blue", chineseColor: "blue", audioSource: require("./Swedish/pronunciation_sv_advokat.mp3")});
     }
 
     render(){
-        /*const renderItem = ({ item }) => (
-            <Item title={item.title} subtitle={item.subtitle} onPress={this.testPress} />
-        );*/
 	return(
 	    <View style={styles.container}>
 		<Text>{this.state.videoPaused}</Text>
@@ -127,9 +121,6 @@ class Home extends React.Component{
 		    <Button title="Chinese" color={this.state.chineseColor} onPress={this.chinesePress} />
 		</View>
 		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={this.firstOnSubmitEditing} />
-		<View>
-		<Video source={this.state.audioSource} ref={component => (this._video = component)} paused={this.state.videoPaused} repeat={this.state.videoRepeat} onEnd={() => this.setState({})} />
-		</View>
 		<ScrollView>
 		<SectionList sections={this.state.DATA} keyExtractor={(item, index) => item + index} renderItem={({ item }) => <Item title={item} onPress={this.testPress} />} renderSectionHeader={({ section: { title } }) => ( <Text style={styles.header}>{title}</Text> )} />
 		</ScrollView>
