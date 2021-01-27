@@ -61,7 +61,8 @@ class Home extends React.Component{
     addData(lang){
         var DATA = []
 	if(lang === "sv"){
-	    DATA.push({title: "1.", data: ["dd\nee", "ff\ngg"], pronunciations: ['pronunciation_sv_advokat.mp3', 'pronunciation_sv_adjektiv.mp3']})
+	    DATA.push({title: "1.", data: ["advokat\nee", "ff\ngg"]})
+	    DATA.push({title: "2.", data: ["dd\nee", "ff\ngg"]})
         }
 	else if(lang === "ja"){
 	    DATA.push({title: "1.", data: ["dd"]})
@@ -94,9 +95,13 @@ class Home extends React.Component{
     firstOnSubmitEditing(){
         console.log("test2")
     }
-    testPress(index){
-	    console.log(index)
-        var pronunciation = new Sound('pronunciation_sv_advokat.mp3', null, (error) => {
+    testPress(item){
+	var source = ''
+	if(this.state.swedishColor === 'red'){
+            source += 'pronunciation_sv_'
+	}
+	source += item.split('\n')[0] + '.mp3'
+        var pronunciation = new Sound(source, null, (error) => {
 	    if(error){
 	    }
 
@@ -122,7 +127,7 @@ class Home extends React.Component{
 		</View>
 		<TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onSubmitEditing={this.firstOnSubmitEditing} />
 		<ScrollView>
-		<SectionList sections={this.state.DATA} keyExtractor={(item, index) => item + index} renderItem={({ item, index }) => <Item title={item} onPress={() => this.testPress(index)} />} renderSectionHeader={({ section: { title } }) => ( <Text style={styles.header}>{title}</Text> )} />
+		<SectionList sections={this.state.DATA} keyExtractor={(item, index) => item + index} renderItem={({ item, index }) => <Item title={item} onPress={() => this.testPress(item)} />} renderSectionHeader={({ section: { title } }) => ( <Text style={styles.header}>{title}</Text> )} />
 		</ScrollView>
 	    </View>
 	);
