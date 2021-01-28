@@ -1,9 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, Button, TextInput, SectionList, TouchableHighlight, View, ScrollView } from 'react-native';
-import Video from 'react-native-video';
-import VideoPlayer from 'react-native-video-controls';
-import SoundPlayer from 'react-native-sound-player';
 var Sound = require('react-native-sound');
 
 class Exam extends React.Component{
@@ -60,8 +57,13 @@ class Home extends React.Component{
 
     addData(lang){
         var DATA = []
+	var data = 0
 	if(lang === "sv"){
-	    DATA.push({title: "1.", data: ["advokat\nee", "ff\ngg"]})
+	    /*for(var i = 0; i < ; i++){
+                data += 1
+	    }*/
+            console.log(data)
+	    DATA.push({title: "1.", data: ["advokat\nee", "adjektiv\ngg"]})
 	    DATA.push({title: "2.", data: ["dd\nee", "ff\ngg"]})
         }
 	else if(lang === "ja"){
@@ -100,11 +102,19 @@ class Home extends React.Component{
 	if(this.state.swedishColor === 'red'){
             source += 'pronunciation_sv_'
 	}
+	else if(this.state.japaneseColor === 'red'){
+            source += 'pronunciation_ja_'
+	}
+	else if(this.state.portugueseColor === 'red'){
+            source += 'pronunciation_pt_'
+	}
+	else if(this.state.chineseColor === 'red'){
+            source += 'pronunciation_zh_'
+	}
 	source += item.split('\n')[0] + '.mp3'
         var pronunciation = new Sound(source, null, (error) => {
 	    if(error){
 	    }
-
 	    pronunciation.play();
 	})
     }
