@@ -25,10 +25,16 @@ while(fwp_i < foreignwithpronunciations.length){
 
 for(var i = 0; i < foreignwithpronunciationsandenglish.length; i++){
     foreignwithpronunciationsandenglish[i] = foreignwithpronunciationsandenglish[i].split(' ')
-    foreignwithpronunciationsandenglish[i] = foreignwithpronunciationsandenglish[i].join('\n')
+    foreignwithpronunciationsandenglish[i] = foreignwithpronunciationsandenglish[i].join('\\n')
+    foreignwithpronunciationsandenglish[i] = '\"' + foreignwithpronunciationsandenglish[i] + '\"'
 }
-
+/*
+for(var i = 0; i < foreignwithpronunciationsandenglish.length; i++){
+    var temp = []
+    
+}
+*/
 //console.log(withenglish)
 //console.log(foreignwithpronunciations)
-//console.log(foreignwithpronunciationsandenglish)
-fs.writeFileSync("sv-with-pronunciations-and-english.txt", foreignwithpronunciationsandenglish) //Change this
+console.log(foreignwithpronunciationsandenglish)
+//fs.writeFileSync("sv-with-pronunciations-and-english.txt", foreignwithpronunciationsandenglish) //Change this
