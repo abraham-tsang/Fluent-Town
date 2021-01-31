@@ -100,6 +100,17 @@ class Home extends React.Component{
         console.log("test2")
     }
     convertName(name){
+	for(var i = 0; i < name.length; i++){
+            if(name[i] === 'å' || name[i] === 'ä'){
+	        name[i] = 'a'
+	    }
+	    else if(name[i] === 'ö'){
+                name[i] = 'o'
+	    }
+	    else if(name[i] === 'é'){
+                name[i] = 'e'
+	    }
+	}
         return name
     }
     pronunciationPress(item){
