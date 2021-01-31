@@ -38,6 +38,7 @@ class Home extends React.Component{
 	this.portuguesePress = this.portuguesePress.bind(this);
 	this.chinesePress = this.chinesePress.bind(this);
 	this.firstOnSubmitEditing = this.firstOnSubmitEditing.bind(this);
+	this.convertName = this.convertName.bind(this);
 	this.pronunciationPress = this.pronunciationPress.bind(this);
 	this.state = {
 	    examColor: "blue",
@@ -98,6 +99,9 @@ class Home extends React.Component{
     firstOnSubmitEditing(){
         console.log("test2")
     }
+    convertName(name){
+        return name
+    }
     pronunciationPress(item){
 	var source = ''
 	if(this.state.swedishColor === 'red'){
@@ -112,7 +116,8 @@ class Home extends React.Component{
 	else if(this.state.chineseColor === 'red'){
             source += 'pronunciation_zh_'
 	}
-	source += item.split('\n')[0] + '.mp3'
+	var new_name = this.convertName(item.split('\n')[0])
+	source += new_name + '.mp3'
         var pronunciation = new Sound(source, null, (error) => {
 	    if(error){
 	    }
