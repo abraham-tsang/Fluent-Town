@@ -100,17 +100,10 @@ class Home extends React.Component{
         console.log("test2")
     }
     convertName(name){
-	for(var i = 0; i < name.length; i++){
-            if(name[i] === 'å' || name[i] === 'ä'){
-	        name[i] = 'a'
-	    }
-	    else if(name[i] === 'ö'){
-                name[i] = 'o'
-	    }
-	    else if(name[i] === 'é'){
-                name[i] = 'e'
-	    }
-	}
+            name = name.replace(/å/g, 'a')
+            name = name.replace(/ä/g, 'a')
+            name = name.replace(/ö/g, 'o')
+            name = name.replace(/é/g, 'e')
         return name
     }
     pronunciationPress(item){
@@ -129,6 +122,7 @@ class Home extends React.Component{
 	}
 	var new_name = this.convertName(item.split('\n')[0])
 	source += new_name + '.mp3'
+	    console.log(new_name)
         var pronunciation = new Sound(source, null, (error) => {
 	    if(error){
 	    }
